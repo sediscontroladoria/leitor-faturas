@@ -1,4 +1,4 @@
-from core.leitor import Leitor
+from services.leitor import Leitor
 from models.fatura_sabesp import FaturaSabesp
 from utils.regex_patterns import sabesp_patterns
 
@@ -17,4 +17,3 @@ class LeitorSabesp(Leitor):
             debito_automatico='SIM' if 'DÉBITO AUTOMÁTICO' in texto else 'NÃO',
             retencao_ir=self._get_match(p['retencao_ir'], texto),
         )
-    
