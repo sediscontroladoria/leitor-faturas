@@ -1,0 +1,7 @@
+/uploads/*
+/uploads
+
+/data/*
+/data
+
+__pycache__
