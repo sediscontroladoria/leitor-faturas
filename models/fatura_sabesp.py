@@ -2,7 +2,6 @@ from dataclasses import dataclass
 
 @dataclass
 class FaturaSabesp:
-    '''Estrutura de dados do tipo `FaturaSabesp`.'''
     num_documento: str
     rgi: str
     hidrometro: str
