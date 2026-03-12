@@ -1,0 +1,35 @@
+import os
+import shutil
+import pandas as pd
+
+class OrganizadorFaturas:
+    @staticmethod
+    def agrupar_por_planilha(planilha_path, pasta_origem, pasta_destino):
+        df = pd.read_excel(planilha_path)
+        
+        col_fatura = 'N° da Fatura'
+        col_ficha = 'Ficha(Ação)'
+        
+        if not os.path.exists(pasta_destino):
+            os.makedirs(pasta_destino)
+
+        erros = []
+        for _, linha in df.iterrows():
+            num_fatura = str(linha[col_fatura]).strip()
+            ficha = str(linha[col_ficha]).strip()
+            
+            origem = os.path.join(pasta_origem, f'{num_fatura}.pdf')
+            subpasta = os.path.join(pasta_destino, ficha)
+            
+            if os.path.exists(origem):
+                os.makedirs(subpasta, exist_ok=True)
+                shutil.move(origem, os.path.join(subpasta, f'{num_fatura}.pdf'))
+            else:
+                erros.append(num_fatura)
+        
+        return erros
+
+    @staticmethod
+    def compactar_saida(pasta_para_zip, nome_arquivo):
+        shutil.make_archive(nome_arquivo, 'zip', pasta_para_zip)
+        return f'{nome_arquivo}.zip'

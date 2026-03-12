@@ -1,21 +1,10 @@
-import datetime
-from services.leitor_sabesp import LeitorSabesp
-from utils.generate_sheet import generate_sheet
+from services.executar_leitura import executar_leitura
+from services.executar_separacao import executar_separacao
 
-CURRENT_DATE = datetime.date.today().strftime('%Y-%m-%d')
-CSV_FILENAME = f'Faturas-Sabesp-{CURRENT_DATE}.csv'
+if __name__ == '__main__':
+    UPLOADS = './uploads'
+    DATA_DIR = './data'
+    PLANILHA_EXTERNA = 'relacao_faturas.xlsx'
 
-PDF_DIR = './uploads'
-CSV_DIR = './data'
-    
-if __name__ == '__main__':        
-    leitor = LeitorSabesp() 
-    
-    print(f'Analisando os arquivos em: {PDF_DIR}...')
-        
-    faturas = leitor.processar_diretorio(PDF_DIR)
-    
-    if faturas:
-        generate_sheet(faturas, CSV_DIR, CSV_FILENAME)
-    else:
-        print('Nenhuma fatura encontrada.')
+    executar_leitura(diretorio_entrada=UPLOADS, diretorio_saida=DATA_DIR)
+    executar_separacao(planilha_path=PLANILHA_EXTERNA, diretorio_uploads=UPLOADS, pasta_saida_zip=DATA_DIR)
