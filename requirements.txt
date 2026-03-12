@@ -2,3 +2,4 @@ pandas==2.3.3
 pdfplumber==0.11.9
 openpyxl
 pypdf
+streamlit

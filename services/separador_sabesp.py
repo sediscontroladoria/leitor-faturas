@@ -1,7 +1,7 @@
 import os
 import re
 from pypdf import PdfReader, PdfWriter
-from services.separador import Separador
+from services.separador_faturas import Separador
 from utils.regex_patterns import sabesp_patterns
 
 class SeparadorSabesp(Separador):

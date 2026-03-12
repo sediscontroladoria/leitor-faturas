@@ -2,21 +2,21 @@ import os
 import shutil
 import pandas as pd
 
+COL_FATURA = 'N° da Fatura'
+COL_FICHA = 'Ficha(Ação)'
+
 class OrganizadorFaturas:
     @staticmethod
     def agrupar_por_planilha(planilha_path, pasta_origem, pasta_destino):
         df = pd.read_excel(planilha_path)
-        
-        col_fatura = 'N° da Fatura'
-        col_ficha = 'Ficha(Ação)'
         
         if not os.path.exists(pasta_destino):
             os.makedirs(pasta_destino)
 
         erros = []
         for _, linha in df.iterrows():
-            num_fatura = str(linha[col_fatura]).strip()
-            ficha = str(linha[col_ficha]).strip()
+            num_fatura = str(linha[COL_FATURA]).strip()
+            ficha = str(linha[COL_FICHA]).strip()
             
             origem = os.path.join(pasta_origem, f'{num_fatura}.pdf')
             subpasta = os.path.join(pasta_destino, ficha)
