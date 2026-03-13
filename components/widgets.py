@@ -41,11 +41,11 @@ class ProgressTracker:
         self.bar.empty()
         self.text.empty()
 
-def render_download_section(label: str, data: bytes, file_name: str, mime: str):
-    st.success('Processamento concluído com sucesso!')
+def render_download_section(option:int, label: str, data: bytes, file_name: str, mime: str):
+    file_name = f'{file_name}-{DATA_ATUAL}'
     st.download_button(
         label=label,
         data=data,
-        file_name=f'{file_name}-{DATA_ATUAL}.csv',
+        file_name=f'{file_name}.csv' if option==1 else  f'{file_name}.zip',
         mime=mime
     )

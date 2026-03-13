@@ -30,6 +30,29 @@ class OrganizadorFaturas:
         return erros
 
     @staticmethod
+    def agrupar_por_mapeamento(faturas_lidas, pasta_origem, pasta_destino, mapa_rgi_ficha):
+        if not os.path.exists(pasta_destino):
+            os.makedirs(pasta_destino)
+
+        erros = []
+        for fatura in faturas_lidas:
+            num_fatura = fatura.num_documento.strip()
+            rgi = fatura.rgi.strip()
+            
+            ficha = mapa_rgi_ficha.get(rgi, 'Sem Ficha')
+            
+            origem = os.path.join(pasta_origem, f'{num_fatura}.pdf')
+            subpasta = os.path.join(pasta_destino, ficha)
+            
+            if os.path.exists(origem):
+                os.makedirs(subpasta, exist_ok=True)
+                shutil.move(origem, os.path.join(subpasta, f'{num_fatura}.pdf'))
+            else:
+                erros.append(num_fatura)
+        
+        return erros
+
+    @staticmethod
     def compactar_saida(pasta_para_zip, nome_arquivo):
         shutil.make_archive(nome_arquivo, 'zip', pasta_para_zip)
         return f'{nome_arquivo}.zip'

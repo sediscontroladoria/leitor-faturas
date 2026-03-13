@@ -8,7 +8,6 @@ pg = st.navigation({
     ],
     'Ferramentas': [
         st.Page('pages/01_leitor_faturas.py', title='Leitor de Faturas', icon='📄', default=True),
-        st.Page('pages/02_separador_faturas.py', title='Separador de Faturas    ', icon='📂'),
     ]
 })
 
