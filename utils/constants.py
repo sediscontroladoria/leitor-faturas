@@ -43,3 +43,42 @@ RGI_FICHA_SABESP = {
 }
 
 RGI_SABESP = list(RGI_FICHA_SABESP.keys())
+
+DOTACAO_FIXA = '06.01.00'
+
+RELACAO_FICHAS_ORCAMENTO = {
+    '2121': {
+        'secretaria': 'SEC. DESENVOLVIMENTO E INCLUSÃO SOCIAL',
+        'empenho': '1074/2026',
+        'af': '198/2026'
+    },
+    '2122': {
+        'secretaria': 'SEC. DESENVOLVIMENTO E INCLUSÃO SOCIAL',
+        'empenho': '819/2026',
+        'af': '315/2026'
+    },
+    '2123': {
+        'secretaria': 'SEC. DESENVOLVIMENTO E INCLUSÃO SOCIAL',
+        'empenho': '816/2026',
+        'af': '313/2026'
+    },
+    '2124': {
+        'secretaria': 'SEC. DESENVOLVIMENTO E INCLUSÃO SOCIAL',
+        'empenho': '821/2026',
+        'af': '316/2026'
+    },
+    '2152': {
+        'secretaria': 'SEC. DESENVOLVIMENTO E INCLUSÃO SOCIAL',
+        'empenho': '817/2026',
+        'af': '314/2026'
+    }
+}
+
+OPCOES_MESES = [
+    'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+    'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+]
+
+OPCOES_CONTAS = ['53521', '80415', '87117', '70441', '89390']
+
+OPCOES_TIPO_DEBITO = ['Débito Automático', 'Débito Manual']
