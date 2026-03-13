@@ -21,25 +21,3 @@ O sistema resolve o problema de processamento manual de grandes volumes de arqui
 
 **4. Relatórios Consolidados:** 
 - Gera planilhas em formato CSV com todos os dados extraídos, permitindo auditoria rápida e exportação imediata para outros sistemas de gestão municipal.
-
-## Arquitetura de Software
-
-- **Service Factory:** Centraliza a criação de instâncias de serviços, permitindo a expansão do suporte a novas concessionárias com impacto mínimo no código existente.
-- **Abstração de Serviços:** Define contratos claros através de classes base abstratas para leitores e separadores, assegurando consistência no comportamento do sistema.
-- **Modelagem de Dados Imutável:** Utiliza dataclasses para representar a estrutura das faturas, promovendo a integridade dos dados durante todo o fluxo de processamento.
-- **Separação de Preocupações:** Isola componentes de interface, lógica de negócio, modelos de dados e utilitários em diretórios específicos, facilitando o desenvolvimento e futuras manutenções.
-
-## Estrutura do Repositório
-
-- `models`: Definições de estruturas de dados e entidades fundamentais do sistema.
-- `services`: Implementações da lógica de negócio, incluindo extração, separação, organização e processamento de dados.
-- `pages`: Módulos de interface que compõem as diferentes telas da aplicação web.
-- `components`: Widgets e elementos de interface de usuário reutilizáveis.
-- `utils`: Armazena constantes, padrões de busca e mapeamentos estáticos de cabeçalhos.
-
-## Requisitos e Tecnologias
-
-- `Python 3.x`: Linguagem base.
-- `Streamlit`: Interface de Usuário.
-- `Pandas`: Manipulação e estruturação de dados em DataFrames.
-- `pdfplumber` e `pypdf`: Processamento e extração de conteúdo de arquivos PDF.
