@@ -21,12 +21,6 @@ def upload_faturas_pdf(label='Arraste as faturas em PDF aqui'):
         accept_multiple_files=True
     )
 
-def upload_planilha_relacao():
-    return st.file_uploader(
-        'Faça o upload da planilha de relação (.xlsx)', 
-        type=['xlsx']
-    )
-
 class ProgressTracker:
     def __init__(self):
         self.bar = st.progress(0)
