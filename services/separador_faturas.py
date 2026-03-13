@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-class Separador(ABC):
+class SeparadorFaturas(ABC):
     @abstractmethod
     def separar(self, pdf_paths, pasta_saida):
         pass

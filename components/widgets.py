@@ -46,6 +46,6 @@ def render_download_section(label: str, data: bytes, file_name: str, mime: str):
     st.download_button(
         label=label,
         data=data,
-        file_name=f'{file_name}-{DATA_ATUAL}',
+        file_name=f'{file_name}-{DATA_ATUAL}.csv',
         mime=mime
     )

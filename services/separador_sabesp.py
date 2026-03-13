@@ -1,10 +1,10 @@
 import os
 import re
 from pypdf import PdfReader, PdfWriter
-from services.separador_faturas import Separador
+from services.separador_faturas import SeparadorFaturas
 from utils.regex_patterns import sabesp_patterns
 
-class SeparadorSabesp(Separador):
+class SeparadorSabesp(SeparadorFaturas):
     def __init__(self):
         self.pattern_id = sabesp_patterns['num_documento']
 
