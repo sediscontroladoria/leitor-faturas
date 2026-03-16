@@ -5,7 +5,7 @@ from utils.regex_patterns import sabesp_patterns
 
 class SeparadorFaturas():
     def __init__(self):
-        self.pattern_id = sabesp_patterns['num_documento']
+        self.pattern_id = sabesp_patterns['num_fatura']
 
     def separar(self, pdf_paths, pasta_saida):
         if not os.path.exists(pasta_saida):

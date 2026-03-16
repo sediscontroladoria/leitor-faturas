@@ -36,7 +36,7 @@ class OrganizadorFaturas:
 
         erros = []
         for fatura in faturas_lidas:
-            num_fatura = fatura.num_documento.strip()
+            num_fatura = fatura.num_fatura.strip()
             identificador = fatura.identificador_ligacao.strip()
             
             ficha = mapa_fichas.get(identificador, 'Sem Ficha')

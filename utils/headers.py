@@ -1,5 +1,5 @@
 sabesp_headers = {
-    'num_documento': 'Nº Documento',
+    'num_fatura': 'Nº Fatura',
     'rgi': 'RGI',
     'hidrometro': 'Hidrômetro',
     'vencimento': 'Vencimento',
@@ -11,13 +11,13 @@ sabesp_headers = {
 }
 
 edp_headers = {
-    'num_documento': 'Nº Documento',
+    'num_fatura': 'Nº Fatura',
     'uc': 'UC',
     'medidor': 'Medidor',
-    'vencimento': 'Vencimento',
-    'debito_automatico': 'Débito Automático',
     'valor': 'Valor (R$)',
     'consumo': 'Consumo (m³)',
+    'vencimento': 'Vencimento',
+    'debito_automatico': 'Débito Automático',
     'retencao_ir': 'Retenção IR',
     'ficha': 'Ficha (Ação)'
 }

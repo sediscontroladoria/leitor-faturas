@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 
 @dataclass
 class Fatura(ABC):
-    num_documento: str
+    num_fatura: str
     valor: str
     consumo: str
     vencimento: str

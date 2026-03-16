@@ -8,7 +8,7 @@ class Leitor(ABC):
     def _extrair_texto(self, pdf_path):
         with pdfplumber.open(pdf_path) as pdf:
             return ' '.join([p.extract_text(x_tolerance=3) or '' for p in pdf.pages])
-
+        
     def _get_match(self, pattern, texto):
         match = re.search(pattern, texto)
         return match.group(1) if match else 'N/A'

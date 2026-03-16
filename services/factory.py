@@ -1,4 +1,6 @@
 from services.leitor_sabesp import LeitorSabesp
+from services.leitor_edp import LeitorEDP
+
 from services.separador_faturas import SeparadorFaturas
 
 class ServiceFactory:    
@@ -7,7 +9,7 @@ class ServiceFactory:
         if tipo == "Sabesp":
             return LeitorSabesp()
         elif tipo == "EDP":
-            pass
+            return LeitorEDP()
         return None
 
     @staticmethod

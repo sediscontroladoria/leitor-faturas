@@ -8,7 +8,7 @@ class LeitorSabesp(Leitor):
         p = sabesp_patterns
         
         return FaturaSabesp(
-            num_documento=self._get_match(p['num_documento'], texto),
+            num_fatura=self._get_match(p['num_fatura'], texto),
             rgi=self._get_match(p['rgi'], texto),
             hidrometro=self._get_match(p['hidrometro'], texto),
             valor=self._get_match(p['valor'], texto),
