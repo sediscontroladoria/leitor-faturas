@@ -30,16 +30,16 @@ class OrganizadorFaturas:
         return erros
 
     @staticmethod
-    def agrupar_por_mapeamento(faturas_lidas, pasta_origem, pasta_destino, mapa_rgi_ficha):
+    def agrupar_por_mapeamento(faturas_lidas, pasta_origem, pasta_destino, mapa_fichas):
         if not os.path.exists(pasta_destino):
             os.makedirs(pasta_destino)
 
         erros = []
         for fatura in faturas_lidas:
             num_fatura = fatura.num_documento.strip()
-            rgi = fatura.rgi.strip()
+            identificador = fatura.identificador_ligacao.strip()
             
-            ficha = mapa_rgi_ficha.get(rgi, 'Sem Ficha')
+            ficha = mapa_fichas.get(identificador, 'Sem Ficha')
             
             origem = os.path.join(pasta_origem, f'{num_fatura}.pdf')
             subpasta = os.path.join(pasta_destino, ficha)

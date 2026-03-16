@@ -1,3 +1,5 @@
+# Sabesp
+
 RGI_FICHA_SABESP = {
     '570290406': '165(2152)',
     '396964800': '165(2152)',
@@ -43,3 +45,75 @@ RGI_FICHA_SABESP = {
 }
 
 RGI_SABESP = list(RGI_FICHA_SABESP.keys())
+
+# EDP
+
+UC_FICHA_EDP = {
+    '1470300403': '165(2152)',
+    '247478000473': '114(2122)',
+    '144506800494': '114(2122)',
+    '1277600423': '114(2122)',
+    '1350700464': '114(2122)',
+    '147807600441': '114(2122)',
+    '68875100440': '114(2122)',
+    '1393500411': '114(2122)',
+    '1277700419': '114(2122)',
+    '111272100448': '114(2122)',
+    '85858900407': '114(2122)',
+    '61696700405': '118(2123)',
+    '250663100471': '118(2123)',
+    '220788900483': '118(2123)',
+    '138042000480': '118(2123)',
+    '56407200484': '118(2123)',
+    '56629400407': '118(2123)',
+    '61643700401': '118(2123)',
+    '65559600421': '118(2123)',
+    '229818200490': '118(2123)',
+    '57815800440': '131(2124)',
+    '57291000498': '131(2124)',
+    '57291100483': '131(2124)',
+    '239366700470': '112(2121)',
+}
+
+UC_EDP = list(UC_FICHA_EDP.keys())
+
+# Campos
+
+DOTACAO_FIXA = '06.01.00'
+
+RELACAO_FICHAS_ORCAMENTO = {
+    '2121': {
+        'secretaria': 'SEC. DESENVOLVIMENTO E INCLUSÃO SOCIAL',
+        'empenho': '1074/2026',
+        'af': '198/2026'
+    },
+    '2122': {
+        'secretaria': 'SEC. DESENVOLVIMENTO E INCLUSÃO SOCIAL',
+        'empenho': '819/2026',
+        'af': '315/2026'
+    },
+    '2123': {
+        'secretaria': 'SEC. DESENVOLVIMENTO E INCLUSÃO SOCIAL',
+        'empenho': '816/2026',
+        'af': '313/2026'
+    },
+    '2124': {
+        'secretaria': 'SEC. DESENVOLVIMENTO E INCLUSÃO SOCIAL',
+        'empenho': '821/2026',
+        'af': '316/2026'
+    },
+    '2152': {
+        'secretaria': 'SEC. DESENVOLVIMENTO E INCLUSÃO SOCIAL',
+        'empenho': '817/2026',
+        'af': '314/2026'
+    }
+}
+
+OPCOES_MESES = [
+    'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+    'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+]
+
+OPCOES_CONTAS = ['53521', '80415', '87117', '70441', '89390']
+
+OPCOES_TIPO_DEBITO = ['Débito Automático', 'Débito Manual']

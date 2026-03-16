@@ -1,5 +1,5 @@
 from services.leitor_sabesp import LeitorSabesp
-from services.separador_sabesp import SeparadorSabesp
+from services.separador_faturas import SeparadorFaturas
 
 class ServiceFactory:    
     @staticmethod
@@ -11,9 +11,5 @@ class ServiceFactory:
         return None
 
     @staticmethod
-    def get_separador(tipo: str):
-        if tipo == "Sabesp":
-            return SeparadorSabesp()
-        elif tipo == 'EDP':
-            pass
-        return None
+    def get_separador():
+        return SeparadorFaturas()

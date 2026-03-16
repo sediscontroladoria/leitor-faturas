@@ -9,3 +9,15 @@ sabesp_headers = {
     'retencao_ir': 'Retenção IR',
     'ficha': 'Ficha (Ação)'
 }
+
+edp_headers = {
+    'num_documento': 'Nº Documento',
+    'uc': 'UC',
+    'medidor': 'Medidor',
+    'vencimento': 'Vencimento',
+    'debito_automatico': 'Débito Automático',
+    'valor': 'Valor (R$)',
+    'consumo': 'Consumo (m³)',
+    'retencao_ir': 'Retenção IR',
+    'ficha': 'Ficha (Ação)'
+}
