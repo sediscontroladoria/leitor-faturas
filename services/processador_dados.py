@@ -1,7 +1,6 @@
 import pandas as pd
 import re
-import re
-from utils.constants import RGI_SABESP, DOTACAO_FIXA, RELACAO_FICHAS_ORCAMENTO
+from utils.constants import RGI_SABESP, UC_EDP, DOTACAO_FIXA, RELACAO_FICHAS_ORCAMENTO
 from dataclasses import asdict
 
 class ProcessadorDados:
@@ -21,15 +20,17 @@ class ProcessadorDados:
         return match.group(1) if match else 'Sem Ficha'
 
     @staticmethod
-    def preparar_dataframe_faturas(faturas_lidas: list, mapa_rgi_ficha: dict, headers: dict) -> pd.DataFrame:
+    def preparar_dataframe_faturas(faturas_lidas: list, mapa_fichas: dict, headers: dict, coluna_id: str) -> pd.DataFrame:
         faturas_dicts = [asdict(f) for f in faturas_lidas]
         df = pd.DataFrame(faturas_dicts)
-        df['ficha'] = df['rgi'].map(mapa_rgi_ficha).fillna('Sem Ficha')
-        df = ProcessadorDados.ordenar_por_rgi(df)
+        
+        df['ficha'] = df[coluna_id].map(mapa_fichas).fillna('Sem Ficha')        
+        df = df[list(headers.keys())]
+        df = ProcessadorDados.ordenar_por_id(df, coluna_id)
         return df.rename(columns=headers)
 
     @staticmethod
-    def gerar_relatorio_final(faturas_lidas: list, mapa_rgi_ficha: dict) -> pd.DataFrame:
+    def gerar_relatorio_final(faturas_lidas: list, mapa_fichas: dict, coluna_id: str) -> pd.DataFrame:
         faturas_dicts = [asdict(f) for f in faturas_lidas]
         df = pd.DataFrame(faturas_dicts)
 
@@ -37,10 +38,9 @@ class ProcessadorDados:
         df['IR'] = df['retencao_ir'].apply(ProcessadorDados._converter_para_float)
         df['Valor Bruto'] = df['Valor Líquido'] + df['IR']
         
-        df['ficha_extensa'] = df['rgi'].map(mapa_rgi_ficha).fillna('Sem Ficha')
+        df['ficha_extensa'] = df[coluna_id].map(mapa_fichas).fillna('Sem Ficha')
         df['AÇÃO'] = df['ficha_extensa'].apply(ProcessadorDados._extrair_codigo_ficha)
 
-        # AGRUPAMENTO POR AÇÃO (FICHA)
         df_agrupado = df.groupby('AÇÃO').agg({
             'Valor Líquido': 'sum',
             'IR': 'sum',
@@ -70,6 +70,9 @@ class ProcessadorDados:
         return df_final
 
     @staticmethod
-    def ordenar_por_rgi(df: pd.DataFrame, coluna_rgi: str = 'rgi') -> pd.DataFrame:
-        df[coluna_rgi] = pd.Categorical(df[coluna_rgi], categories=RGI_SABESP, ordered=True)
-        return df.sort_values(coluna_rgi)
+    def ordenar_por_id(df: pd.DataFrame, coluna_id: str) -> pd.DataFrame:
+        if coluna_id == 'rgi':
+            df[coluna_id] = pd.Categorical(df[coluna_id], categories=RGI_SABESP, ordered=True)
+        elif coluna_id == 'uc':
+            df[coluna_id] = pd.Categorical(df[coluna_id], categories=UC_EDP, ordered=True)
+        return df.sort_values(coluna_id)

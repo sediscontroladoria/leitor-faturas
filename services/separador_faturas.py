@@ -1,11 +1,10 @@
 import os
 import re
 from pypdf import PdfReader, PdfWriter
-from utils.regex_patterns import sabesp_patterns
 
 class SeparadorFaturas():
-    def __init__(self):
-        self.pattern_id = sabesp_patterns['num_fatura']
+    def __init__(self, pattern_id):
+        self.pattern_id = pattern_id
 
     def separar(self, pdf_paths, pasta_saida):
         if not os.path.exists(pasta_saida):
