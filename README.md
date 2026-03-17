@@ -21,7 +21,7 @@ O sistema utiliza uma arquitetura em camadas e padrões de projeto para garantir
 * **Camada de Interface (`pages/` & `components/`)**: Interface modular construída em Streamlit, focada na experiência do usuário e reutilização de componentes.
 * **Camada de Utilitários (`utils/`)**: Centraliza constantes, cabeçalhos de exportação e padrões RegEx, permitindo ajustes técnicos sem alteração no núcleo do sistema.
 
-## Tecnologias Utilizadas
+## 3. Tecnologias Utilizadas
 
 * **Linguagem**: Python 3.x
 * **Framework de UI**: Streamlit
@@ -29,7 +29,7 @@ O sistema utiliza uma arquitetura em camadas e padrões de projeto para garantir
 * **Manipulação de PDF**: PDFPlumber e PyPDF
 * **Distribuição**: Suporte para empacotamento via PyInstaller.
 
-## 📂 Estrutura do Projeto
+## 4. Estrutura do Projeto
 
 ```text
 leitor-sedis/
@@ -43,7 +43,7 @@ leitor-sedis/
 └── requirements.txt     # Dependências do projeto
 ```
 
-## ⚙️ Como Executar
+## 5. Como Executar
 
 1.  **Instalação de Dependências**:
     ```bash
@@ -58,7 +58,7 @@ leitor-sedis/
 3.  **Execução via Script de Inicialização**:
     O arquivo `run_app.py` pode ser utilizado para iniciar a aplicação, configurando automaticamente o caminho do ambiente.
 
-## 📊 Configurações e Manutenção
+## 6. Configurações e Manutenção
 
 * **Atualização de Mapeamentos**: Novos RGIs ou UCs devem ser adicionados em `utils/constants.py` para garantir a correta classificação nas fichas orçamentárias.
 * **Ajustes de Extração**: Caso o layout das faturas mude, os padrões de captura devem ser atualizados em `utils/regex_patterns.py`.
