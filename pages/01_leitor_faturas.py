@@ -29,6 +29,7 @@ render_page_header('Processador de Faturas', '📄')
 
 tipo_fatura = select_concessionaria('leitor_concess')
 
+<<<<<<< HEAD
 if tipo_fatura == 'Sabesp':
     mapa_fichas_atual = RGI_FICHA_SABESP
     headers_atuais = sabesp_headers
@@ -38,6 +39,8 @@ else:
     headers_atuais = edp_headers
     coluna_id_atual = 'uc'
 
+=======
+>>>>>>> 8033903c5fad14b361f7fb9b0439e185f398cc19
 col_mes, col_ano = st.columns(2)
 with col_mes:
     mes_comp = select_mes_competencia('mes_comp')
@@ -112,6 +115,12 @@ if arquivos_pdf and st.button('Processar Faturas'):
                         coluna_id_atual
                     )
 
+                    tracker.text.info('Gerando relatório final...')
+                    df_relatorio = ProcessadorDados.gerar_relatorio_final(
+                        faturas_lidas,
+                        RGI_FICHA_SABESP
+                    )
+
                     tracker.bar.progress(90)
                     tracker.text.info('Gerando arquivos de saída...')
                     
@@ -157,6 +166,7 @@ if st.session_state.processado:
     c1, c2, c3 = st.columns([1, 1.2, 1.2]) 
     
     with c1:
+<<<<<<< HEAD
         render_download_section(1, 'Baixar Planilha (.CSV)', st.session_state.dados_csv, f'Planilha_{tipo_fatura}', 'text/csv')
     
     with c2:
@@ -164,3 +174,30 @@ if st.session_state.processado:
 
     with c3:
         render_download_section(3, 'Baixar Relatório Final (.CSV)', st.session_state.dados_relatorio, f'Relatorio_Final_{tipo_fatura}', 'text/csv')
+=======
+        render_download_section(
+            option=1,
+            label='Baixar Planilha (.CSV)',
+            data=st.session_state.dados_csv,
+            file_name=f'Planilha_{tipo_fatura}',
+            mime='text/csv'
+        )
+    
+    with c2:
+        render_download_section(
+            option=2,
+            label='Baixar Faturas (.ZIP)',
+            data=st.session_state.dados_zip,
+            file_name=f'Faturas_{tipo_fatura}',
+            mime='application/zip'
+        )
+
+    with c3:
+        render_download_section(
+            option=3,
+            label='Baixar Relatório Final (.CSV)',
+            data=st.session_state.dados_relatorio,
+            file_name=f'Relatorio_Final_{tipo_fatura}',
+            mime='text/csv'
+        )
+>>>>>>> 8033903c5fad14b361f7fb9b0439e185f398cc19
