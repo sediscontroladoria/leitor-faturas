@@ -1,6 +1,6 @@
 import streamlit as st
 import datetime
-from utils.constants import OPCOES_MESES, OPCOES_CONTAS, OPCOES_TIPO_DEBITO
+from utils.constants import OPCOES_MESES, OPCOES_CONTAS, OPCOES_SAIDA, OPCOES_TIPO_DEBITO
 
 DATA_ATUAL = datetime.date.today().strftime('%Y-%m-%d')
 
@@ -82,4 +82,11 @@ def render_download_section(option: int, label: str, data: bytes, file_name: str
         data=data,
         file_name=f'{nome_final}{extensao}',
         mime=mime
+    )
+
+def select_opcoes_processamento(key: str):
+    return st.multiselect(
+        'O que deseja gerar?',
+        OPCOES_SAIDA,
+        key=key
     )

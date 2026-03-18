@@ -116,4 +116,6 @@ OPCOES_MESES = [
 
 OPCOES_CONTAS = ['53521', '80415', '87117', '70441', '89390']
 
-OPCOES_TIPO_DEBITO = ['Débito Automático', 'Débito Manual']
+OPCOES_TIPO_DEBITO = ['Geral', 'Débito Automático', 'Débito Manual']
+
+OPCOES_SAIDA = ['Gerar Planilha', 'Gerar ZIP', 'Gerar Relatório Final']
