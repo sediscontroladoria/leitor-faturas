@@ -55,8 +55,14 @@ leitor-sedis/
     streamlit run streamlit_app.py
     ```
 
-3.  **Execução via Script de Inicialização**:
-    O arquivo `run_app.py` pode ser utilizado para iniciar a aplicação, configurando automaticamente o caminho do ambiente.
+3.  **Build do Sistema:**:
+
+    Para fazer a build do sistema em um executável, rode o comando:
+    ```bash
+    pyinstaller --onefile --noconsole  --name "Leitor de Faturas - Taubate"  --collect-all streamlit  --collect-all pdfplumber  --collect-all pypdf --collect-all openpyxl  --add-data "streamlit_app.py;."  --add-data "pages;pages"  --add-data "components;components"  --add-data "models;models"  --add-data "services;services"  --add-data "utils;utils" --add-data "assets;assets"  .\run_app.py
+    ```
+
+    Após o sistema fazer a geração do executável, é possível rodá-lo acessando a basta `./dist`.
 
 ## 6. Configurações e Manutenção
 

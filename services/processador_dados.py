@@ -62,12 +62,8 @@ class ProcessadorDados:
             'DOTAÇÃO', 'AÇÃO', 'SECRETARIA RESPONSAVEL', 
             'EMPENHO', 'AF', 'Valor Líquido', 'IR', 'Valor Bruto'
         ]
-        df_final = df_agrupado[colunas].copy()
-
-        for col in ['Valor Líquido', 'IR', 'Valor Bruto']:
-            df_final[col] = df_final[col].map(lambda x: f'R$ {x:,.2f}'.replace(',', 'X').replace('.', ',').replace('X', '.'))
-
-        return df_final
+        
+        return df_agrupado[colunas].copy()
 
     @staticmethod
     def ordenar_por_id(df: pd.DataFrame, coluna_id: str) -> pd.DataFrame:

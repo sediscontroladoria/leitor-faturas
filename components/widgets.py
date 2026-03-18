@@ -76,7 +76,16 @@ class ProgressTracker:
 
 def render_download_section(option: int, label: str, data: bytes, file_name: str, mime: str):
     nome_final = f'{file_name}-{DATA_ATUAL}'
-    extensao = '.csv' if option in [1, 3] else '.zip'
+    
+    if option == 1:
+        extensao = '.csv'
+    elif option == 2:
+        extensao = '.zip'
+    elif option == 3:
+        extensao = '.xlsx'
+    else:
+        extensao = ''
+        
     st.download_button(
         label=label,
         data=data,

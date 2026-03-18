@@ -79,22 +79,31 @@ if arquivos_pdf and st.button('Processar Faturas'):
             st.error(f'Falha no processamento: {str(e)}')
 
 if st.session_state.processado:
-    st.success('Processamento concluído! Faça o download de seus arquivos abaixo:')
-    
     cols_existentes = [opt for opt in ['Gerar Planilha', 'Gerar ZIP', 'Gerar Relatório Final'] if opt in opcoes_saida]
-    cols = st.columns(len(cols_existentes)) 
     
-    idx = 0
-    if 'Gerar Planilha' in opcoes_saida and st.session_state.dados_csv:
-        with cols[idx]:
-            render_download_section(1, 'Baixar Planilha (.CSV)', st.session_state.dados_csv, f'Planilha_{tipo_fatura}', 'text/csv')
-        idx += 1
-    
-    if 'Gerar ZIP' in opcoes_saida and st.session_state.dados_zip:
-        with cols[idx]:
-            render_download_section(2, 'Baixar Faturas (.ZIP)', st.session_state.dados_zip, f'Faturas_{tipo_fatura}', 'application/zip')
-        idx += 1
+    if cols_existentes:
+        st.success('Processamento concluído! Faça o download de seus arquivos abaixo:')
+        cols = st.columns(len(cols_existentes)) 
+        
+        idx = 0
+        if 'Gerar Planilha' in opcoes_saida and st.session_state.dados_csv:
+            with cols[idx]:
+                render_download_section(1, 'Baixar Planilha (.CSV)', st.session_state.dados_csv, f'Planilha_{tipo_fatura}', 'text/csv')
+            idx += 1
+        
+        if 'Gerar ZIP' in opcoes_saida and st.session_state.dados_zip:
+            with cols[idx]:
+                render_download_section(2, 'Baixar Faturas (.ZIP)', st.session_state.dados_zip, f'Faturas_{tipo_fatura}', 'application/zip')
+            idx += 1
 
-    if 'Gerar Relatório Final' in opcoes_saida and st.session_state.dados_relatorio:
-        with cols[idx]:
-            render_download_section(3, 'Baixar Relatório Final (.CSV)', st.session_state.dados_relatorio, f'Relatorio_Final_{tipo_fatura}', 'text/csv')
+        if 'Gerar Relatório Final' in opcoes_saida and st.session_state.dados_relatorio:
+            with cols[idx]:
+                render_download_section(
+                    3, 
+                    'Baixar Relatório Final (.XLSX)', 
+                    st.session_state.dados_relatorio, 
+                    f'Relatorio_Final_{tipo_fatura}', 
+                    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                )
+    else:
+        st.info('Processamento concluído. Selecione uma opção de saída para gerar os arquivos.')
