@@ -1,23 +1,66 @@
-# Leitor de Faturas - Prefeitura de Taubaté
+# Leitor de Faturas - Prefeitura de Taubaté (Leitor-Sedis)
 
-Este repositório contém o sistema de processamento e organização automatizada de faturas desenvolvido para a Prefeitura Municipal de Taubaté. 
+O **Leitor-Sedis** é uma solução de engenharia de software desenvolvida para automatizar o ciclo completo de tratamento de faturas de concessionárias (Sabesp e EDP) para a Prefeitura Municipal de Taubaté. O sistema substitui processos manuais por um fluxo de trabalho otimizado que abrange desde a extração de dados brutos em PDFs até a organização sistêmica de arquivos e geração de relatórios financeiros consolidados.
 
-## Descrição do Projeto
+## 1. Funcionalidades Principais
 
-O `Leitor-Sedis` é uma aplicação baseada em Python e Streamlit projetada para gerenciar o ciclo completo de tratamento de faturas de concessionárias. 
+* **Extração Inteligente de Dados**: Utiliza motores de processamento baseados em Expressões Regulares (RegEx) para capturar informações críticas como número da fatura, consumo, valores e datas de vencimento.
+* **Segmentação de Documentos**: Identifica e separa automaticamente faturas individuais contidas em arquivos PDF de múltiplas páginas.
+* **Classificação e Organização**: Agrupa automaticamente as faturas em diretórios baseados na **Ficha (Ação)** orçamentária correspondente, utilizando mapeamentos internos de RGI e UC.
+* **Relatórios Consolidados**: Gera planilhas CSV detalhadas e relatórios finais com cálculos de retenção de impostos (IR) e totais por dotação orçamentária.
 
-O sistema resolve o problema de processamento manual de grandes volumes de arquivos PDF, realizando a leitura de dados, separação e organização dos documentos em diretórios baseados nas regras de negócios do projeto.
+## 2. Arquitetura do Sistema
 
-## Funcionalidades Principais
+O sistema utiliza uma arquitetura em camadas e padrões de projeto para garantir escalabilidade e baixa manutenção:
 
-**1. Extração Automatizada de Dados:** 
-- Utiliza a extração de dados com base em expressões regulares (RegEx) para capturar informações críticas de diversas faturas simultaneamente.
+* **Camada de Modelos (`models/`)**: Define entidades de dados abstratas e concretas através de `dataclasses`, garantindo que todas as faturas sigam um contrato rigoroso.
+* **Camada de Serviços (`services/`)**:
+    * **Orquestrador**: Centraliza o fluxo de trabalho, desacoplando a lógica de processamento da interface do usuário.
+    * **Factory Pattern**: A `ServiceFactory` gerencia a criação dinâmica de leitores e separadores específicos para cada concessionária.
+    * **Processamento de Dados**: Camada dedicada à manipulação de DataFrames e lógica financeira.
+* **Camada de Interface (`pages/` & `components/`)**: Interface modular construída em Streamlit, focada na experiência do usuário e reutilização de componentes.
+* **Camada de Utilitários (`utils/`)**: Centraliza constantes, cabeçalhos de exportação e padrões RegEx, permitindo ajustes técnicos sem alteração no núcleo do sistema.
 
-**2. Separação de Documentos:** 
-- Identifica e segmenta faturas individuais contidas em um único arquivo PDF, garantindo a integridade e a individualização de cada registro documental.
+## 3. Tecnologias Utilizadas
 
-**3. Organização Sistêmica:** 
-- Agrupa automaticamente as faturas em pastas nomeadas de acordo com a Ficha (Ação) correspondente, utilizando um mapeamento interno de RGIs que elimina a necessidade de consultas manuais a tabelas externas.
+* **Linguagem**: Python 3.x
+* **Framework de UI**: Streamlit
+* **Processamento de Dados**: Pandas
+* **Manipulação de PDF**: PDFPlumber e PyPDF
+* **Distribuição**: Suporte para empacotamento via PyInstaller.
 
-**4. Relatórios Consolidados:** 
-- Gera planilhas em formato CSV com todos os dados extraídos, permitindo auditoria rápida e exportação imediata para outros sistemas de gestão municipal.
+## 4. Estrutura do Projeto
+
+```text
+leitor-sedis/
+├── components/          # Componentes de interface reutilizáveis
+├── models/              # Definições de classes e entidades (Fatura)
+├── pages/               # Telas da aplicação Streamlit
+├── services/            # Lógica de negócio (Leitura, Separação, Orquestração)
+├── utils/               # Constantes, RegEx e configurações globais
+├── tests/               # Amostras e scripts de teste de extração
+├── streamlit_app.py     # Ponto de entrada da aplicação
+└── requirements.txt     # Dependências do projeto
+```
+
+## 5. Como Executar
+
+1.  **Instalação de Dependências**:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+2.  **Execução em Modo Desenvolvimento**:
+    ```bash
+    streamlit run streamlit_app.py
+    ```
+
+3.  **Execução via Script de Inicialização**:
+    O arquivo `run_app.py` pode ser utilizado para iniciar a aplicação, configurando automaticamente o caminho do ambiente.
+
+## 6. Configurações e Manutenção
+
+* **Atualização de Mapeamentos**: Novos RGIs ou UCs devem ser adicionados em `utils/constants.py` para garantir a correta classificação nas fichas orçamentárias.
+* **Ajustes de Extração**: Caso o layout das faturas mude, os padrões de captura devem ser atualizados em `utils/regex_patterns.py`.
+
+*Este projeto é de uso exclusivo para fins administrativos da Prefeitura Municipal de Taubaté.*
