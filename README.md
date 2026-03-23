@@ -22,8 +22,6 @@ O sistema adota uma arquitetura em camadas e segue rigorosamente os princípios 
 | **`components/`** | Widgets modulares de interface que garantem consistência visual e reusabilidade. |
 | **`utils/`** | Gestão de metadados. Isola as regras de negócio (mapeamentos) das configurações de interface e padrões RegEx. |
 
----
-
 ## Configuração e execução
 
 ### Pré-requisitos
