@@ -1,9 +1,11 @@
 import os
 import re
+import shutil
+from pathlib import Path
 from pypdf import PdfReader, PdfWriter
 
 class SeparadorFaturas():
-    def __init__(self, pattern_id):
+    def __init__(self, pattern_id=None):
         self.pattern_id = pattern_id
 
     def separar(self, pdf_paths, pasta_saida):
@@ -13,6 +15,12 @@ class SeparadorFaturas():
         faturas_processadas = []
 
         for pdf_path in pdf_paths:
+            if not self.pattern_id:
+                id_fatura = Path(pdf_path).stem
+                shutil.copy2(pdf_path, os.path.join(pasta_saida, f'{id_fatura}.pdf'))
+                faturas_processadas.append(id_fatura)
+                continue
+
             reader = PdfReader(pdf_path)
             writer = None
             documento_atual = None

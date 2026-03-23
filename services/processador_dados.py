@@ -1,6 +1,5 @@
 import pandas as pd
 import re
-from utils.constants import RGI_SABESP, UC_EDP, DOTACAO_FIXA, RELACAO_FICHAS_ORCAMENTO
 from dataclasses import asdict
 
 class ProcessadorDados:
@@ -20,22 +19,23 @@ class ProcessadorDados:
         return match.group(1) if match else 'Sem Ficha'
 
     @staticmethod
-    def preparar_dataframe_faturas(faturas_lidas: list, mapa_fichas: dict, headers: dict, coluna_id: str) -> pd.DataFrame:
+    def preparar_dataframe_faturas(faturas_lidas: list, mapa_fichas: dict, headers: dict, coluna_id: str, lista_ordenacao: list) -> pd.DataFrame:
         faturas_dicts = [asdict(f) for f in faturas_lidas]
         df = pd.DataFrame(faturas_dicts)
         
         df['ficha'] = df[coluna_id].map(mapa_fichas).fillna('Sem Ficha')        
         df = df[list(headers.keys())]
-        df = ProcessadorDados.ordenar_por_id(df, coluna_id)
+        df = ProcessadorDados.ordenar_por_id(df, coluna_id, lista_ordenacao)
         return df.rename(columns=headers)
 
     @staticmethod
-    def gerar_relatorio_final(faturas_lidas: list, mapa_fichas: dict, coluna_id: str) -> pd.DataFrame:
+    def gerar_relatorio_final(faturas_lidas: list, mapa_fichas: dict, coluna_id: str, dotacao_fixa: str, relacao_fichas_orcamento: dict) -> pd.DataFrame:
         faturas_dicts = [asdict(f) for f in faturas_lidas]
         df = pd.DataFrame(faturas_dicts)
 
         df['Valor Líquido'] = df['valor'].apply(ProcessadorDados._converter_para_float)
         df['IR'] = df['retencao_ir'].apply(ProcessadorDados._converter_para_float)
+        
         df['Valor Bruto'] = df['Valor Líquido'] + df['IR']
         
         df['ficha_extensa'] = df[coluna_id].map(mapa_fichas).fillna('Sem Ficha')
@@ -47,15 +47,15 @@ class ProcessadorDados:
             'Valor Bruto': 'sum'
         }).reset_index()
 
-        df_agrupado['DOTAÇÃO'] = DOTACAO_FIXA
+        df_agrupado['DOTAÇÃO'] = dotacao_fixa
         df_agrupado['SECRETARIA RESPONSAVEL'] = df_agrupado['AÇÃO'].apply(
-            lambda x: RELACAO_FICHAS_ORCAMENTO.get(x, {}).get('secretaria', '')
+            lambda x: relacao_fichas_orcamento.get(x, {}).get('secretaria', '')
         )
         df_agrupado['EMPENHO'] = df_agrupado['AÇÃO'].apply(
-            lambda x: RELACAO_FICHAS_ORCAMENTO.get(x, {}).get('empenho', '')
+            lambda x: relacao_fichas_orcamento.get(x, {}).get('empenho', '')
         )
         df_agrupado['AF'] = df_agrupado['AÇÃO'].apply(
-            lambda x: RELACAO_FICHAS_ORCAMENTO.get(x, {}).get('af', '')
+            lambda x: relacao_fichas_orcamento.get(x, {}).get('af', '')
         )
 
         colunas = [
@@ -66,9 +66,6 @@ class ProcessadorDados:
         return df_agrupado[colunas].copy()
 
     @staticmethod
-    def ordenar_por_id(df: pd.DataFrame, coluna_id: str) -> pd.DataFrame:
-        if coluna_id == 'rgi':
-            df[coluna_id] = pd.Categorical(df[coluna_id], categories=RGI_SABESP, ordered=True)
-        elif coluna_id == 'uc':
-            df[coluna_id] = pd.Categorical(df[coluna_id], categories=UC_EDP, ordered=True)
+    def ordenar_por_id(df: pd.DataFrame, coluna_id: str, lista_ordenacao: list) -> pd.DataFrame:
+        df[coluna_id] = pd.Categorical(df[coluna_id], categories=lista_ordenacao, ordered=True)
         return df.sort_values(coluna_id)

@@ -1,4 +1,14 @@
-# Sabesp
+DOTACAO_FIXA = '06.01.00'
+
+RELACAO_FICHAS_ORCAMENTO = {
+    '2230': {'secretaria': 'SEC. CULTURA E ECONOMIA CRIATIVA', 'empenho': '851/2026', 'af': '331/2026'},
+    '2108': {'secretaria': 'SEC. ESPORTE, LAZER, QUALIDADE VIDA', 'empenho': '788/2026', 'af': '401/2026'},
+    '2121': {'secretaria': 'SEC. DESENVOLVIMENTO E INCLUSÃO SOCIAL', 'empenho': '1074/2026', 'af': '198/2026'},
+    '2122': {'secretaria': 'SEC. DESENVOLVIMENTO E INCLUSÃO SOCIAL', 'empenho': '819/2026', 'af': '315/2026'},
+    '2123': {'secretaria': 'SEC. DESENVOLVIMENTO E INCLUSÃO SOCIAL', 'empenho': '816/2026', 'af': '313/2026'},
+    '2124': {'secretaria': 'SEC. DESENVOLVIMENTO E INCLUSÃO SOCIAL', 'empenho': '821/2026', 'af': '316/2026'},
+    '2152': {'secretaria': 'SEC. DESENVOLVIMENTO E INCLUSÃO SOCIAL', 'empenho': '817/2026', 'af': '314/2026'}
+}
 
 RGI_FICHA_SABESP = {
     '570290406': '165(2152)',
@@ -44,9 +54,27 @@ RGI_FICHA_SABESP = {
     '926347020': '699(2152)',
 }
 
-RGI_SABESP = list(RGI_FICHA_SABESP.keys())
+RGI_FICHA_SABESP_CENTRO = {
+    '570290406': '165(2152)',
+    '396964800': '165(2152)',
+    '573978999': '165(2152)',
+    '394929586': '165(2152)',
+    '722456620': '165(2152)',
+    '395997445': '165(2152)',
+    '913614602': '165(2152)',
+    '568049209': '165(2152)',
+    '570885434': '165(2152)',
+    '394407458': '165(2152)',
+    '789282143': '165(2152)',
+    '577425021': '165(2152)',
+    '571616747': '165(2152)',
+    '603004504': '165(2152)',
+    '394105010': '815(2108)',
+    '926347020': '699(2230)',
+}
 
-# EDP
+RGI_SABESP = list(RGI_FICHA_SABESP.keys())
+RGI_SABESP_CENTRO = list(RGI_FICHA_SABESP_CENTRO.keys())
 
 UC_FICHA_EDP = {
     '1470300403': '165(2152)',
@@ -77,47 +105,25 @@ UC_FICHA_EDP = {
     '926347020': '699(2152)',
 }
 
-UC_EDP = list(UC_FICHA_EDP.keys())
-
-# Campos
-
-DOTACAO_FIXA = '06.01.00'
-
-RELACAO_FICHAS_ORCAMENTO = {
-    '2121': {
-        'secretaria': 'SEC. DESENVOLVIMENTO E INCLUSÃO SOCIAL',
-        'empenho': '1074/2026',
-        'af': '198/2026'
-    },
-    '2122': {
-        'secretaria': 'SEC. DESENVOLVIMENTO E INCLUSÃO SOCIAL',
-        'empenho': '819/2026',
-        'af': '315/2026'
-    },
-    '2123': {
-        'secretaria': 'SEC. DESENVOLVIMENTO E INCLUSÃO SOCIAL',
-        'empenho': '816/2026',
-        'af': '313/2026'
-    },
-    '2124': {
-        'secretaria': 'SEC. DESENVOLVIMENTO E INCLUSÃO SOCIAL',
-        'empenho': '821/2026',
-        'af': '316/2026'
-    },
-    '2152': {
-        'secretaria': 'SEC. DESENVOLVIMENTO E INCLUSÃO SOCIAL',
-        'empenho': '817/2026',
-        'af': '314/2026'
-    }
+UC_FICHA_EDP_CENTRO = {
+    '115836200479': '165(2152)',
+    '1325500478': '165(2152)',
+    '126642600450': '165(2152)',
+    '161511800485': '165(2152)',
+    '236638900420': '165(2152)',
+    '116710100432': '165(2152)',
+    '67109300448': '165(2152)',
+    '88526000476': '165(2152)',
+    '125482200404': '165(2152)',
+    '128197200458': '165(2152)',
+    '163785400499': '165(2152)',
+    '1558200490': '165(2152)',
+    '136332500440': '165(2152)',
+    '180639300427': '165(2152)',
+    '1298400470': '165(2152)',
+    '139895700491': '165(2152)',
+    '167450900442': '815(2108)',
 }
 
-OPCOES_MESES = [
-    'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
-    'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
-]
-
-OPCOES_CONTAS = ['53521', '80415', '87117', '70441', '89390']
-
-OPCOES_TIPO_DEBITO = ['Geral', 'Débito Automático', 'Débito Manual']
-
-OPCOES_SAIDA = ['Gerar Planilha', 'Gerar ZIP', 'Gerar Relatório Final']
+UC_EDP = list(UC_FICHA_EDP.keys())
+UC_EDP_CENTRO = list(UC_FICHA_EDP_CENTRO.keys())

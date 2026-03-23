@@ -1,6 +1,6 @@
 import streamlit as st
 import datetime
-from utils.constants import OPCOES_MESES, OPCOES_CONTAS, OPCOES_SAIDA, OPCOES_TIPO_DEBITO
+from utils.config_ui import OPCOES_MESES, OPCOES_CONTAS, OPCOES_SAIDA, OPCOES_TIPO_DEBITO
 
 DATA_ATUAL = datetime.date.today().strftime('%Y-%m-%d')
 
@@ -9,8 +9,16 @@ def render_page_header(titulo: str, icon: str):
 
 def select_concessionaria(key: str):
     return st.selectbox(
-        'Selecione o tipo de fatura',
+        'Selecione a concessionária',
         ['Sabesp', 'EDP'],
+        index=0,
+        key=key
+    )
+
+def select_centro_comunitario(key: str):
+    return st.selectbox(
+        'É centro comunitário?',
+        ['Não', 'Sim'],
         index=0,
         key=key
     )

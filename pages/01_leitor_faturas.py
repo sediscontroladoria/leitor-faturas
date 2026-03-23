@@ -1,10 +1,9 @@
 import streamlit as st
-from utils.headers import sabesp_headers, edp_headers
-from utils.constants import RGI_FICHA_SABESP, UC_FICHA_EDP 
 from services.orquestrador_faturas import OrquestradorFaturas
+from services.factory import ServiceFactory
 
 from components.widgets import (
-    render_page_header, select_concessionaria, 
+    render_page_header, select_centro_comunitario, select_concessionaria, 
     upload_faturas_pdf, ProgressTracker, render_download_section,
     select_mes_competencia, input_ano, select_tipo_debito,
     select_conta, input_complemento, select_opcoes_processamento
@@ -21,16 +20,14 @@ if 'processado' not in st.session_state:
 
 render_page_header('Processador de Faturas', '📄')
 
-tipo_fatura = select_concessionaria('leitor_concess')
+col_tipo, col_centro = st.columns(2)
+with col_tipo:
+    tipo_fatura = select_concessionaria('leitor_concess')
+with col_centro:
+    centro_comunitario = select_centro_comunitario('cen_comun')
 
-if tipo_fatura == 'Sabesp':
-    mapa_fichas_atual = RGI_FICHA_SABESP
-    headers_atuais = sabesp_headers
-    coluna_id_atual = 'rgi'
-else:
-    mapa_fichas_atual = UC_FICHA_EDP 
-    headers_atuais = edp_headers
-    coluna_id_atual = 'uc'
+is_centro = centro_comunitario == 'Sim'
+config_fatura = ServiceFactory.get_configuracao_fatura(tipo_fatura, is_centro)
 
 col_mes, col_ano = st.columns(2)
 with col_mes:
@@ -51,7 +48,6 @@ with col_comp:
     complemento = input_complemento('complemento')
 
 arquivos_pdf = upload_faturas_pdf()
-
 if arquivos_pdf and st.button('Processar Faturas'):
     if not opcoes_saida:
         st.error('Selecione ao menos um item para gerar.')
@@ -59,10 +55,16 @@ if arquivos_pdf and st.button('Processar Faturas'):
         tracker = ProgressTracker()
         try:
             resultados = OrquestradorFaturas.processar_lote(
-                arquivos_pdf, tipo_fatura, mes_comp, ano_comp,
-                tipo_debito, conta_fatura, complemento,
-                mapa_fichas_atual, headers_atuais, coluna_id_atual,
-                opcoes_saida, tracker
+                arquivos_pdf=arquivos_pdf, 
+                tipo_fatura=tipo_fatura, 
+                mes_comp=mes_comp, 
+                ano_comp=ano_comp,
+                tipo_debito=tipo_debito, 
+                conta_fatura=conta_fatura, 
+                complemento=complemento,
+                opcoes_saida=opcoes_saida, 
+                config_fatura=config_fatura,
+                tracker=tracker
             )
             
             if resultados:
@@ -72,6 +74,10 @@ if arquivos_pdf and st.button('Processar Faturas'):
                 st.session_state.processado = True
                 tracker.clear()
             else:
+                st.session_state.processado = False
+                st.session_state.dados_csv = None
+                st.session_state.dados_relatorio = None
+                st.session_state.dados_zip = None
                 st.warning('Nenhuma fatura pôde ser lida com os critérios selecionados.')
                 
         except Exception as e:
