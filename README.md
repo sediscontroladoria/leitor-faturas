@@ -1,72 +1,65 @@
-# Leitor de Faturas - Prefeitura de Taubaté (Leitor-Sedis)
+# Leitor Automatizado de Faturas - Leitor SEDIS
 
-O **Leitor-Sedis** é uma solução de engenharia de software desenvolvida para automatizar o ciclo completo de tratamento de faturas de concessionárias (Sabesp e EDP) para a Prefeitura Municipal de Taubaté. O sistema substitui processos manuais por um fluxo de trabalho otimizado que abrange desde a extração de dados brutos em PDFs até a organização sistêmica de arquivos e geração de relatórios financeiros consolidados.
+O **Leitor SEDIS** é uma plataforma de automação especializada, desenvolvida para a **Prefeitura Municipal de Taubaté**. Sua missão é transformar o processamento penoso de faturas de concessionárias (Sabesp e EDP) em um fluxo de trabalho digital, ágil e à prova de erros.
 
-## 1. Funcionalidades Principais
+Através de motores de extração baseados em **RegEx** e uma arquitetura robusta, o sistema realiza o ciclo completo: extração de metadados, classificação orçamentária automática, organização física de arquivos e geração de inteligência financeira consolidada.
 
-* **Extração Inteligente de Dados**: Utiliza motores de processamento baseados em Expressões Regulares (RegEx) para capturar informações críticas como número da fatura, consumo, valores e datas de vencimento.
-* **Segmentação de Documentos**: Identifica e separa automaticamente faturas individuais contidas em arquivos PDF de múltiplas páginas.
-* **Classificação e Organização**: Agrupa automaticamente as faturas em diretórios baseados na **Ficha (Ação)** orçamentária correspondente, utilizando mapeamentos internos de RGI e UC.
-* **Relatórios Consolidados**: Gera planilhas CSV detalhadas e relatórios finais com cálculos de retenção de impostos (IR) e totais por dotação orçamentária.
+## Funcionalidades
 
-## 2. Arquitetura do Sistema
+* **Extração de dados**: Identificação precisa de RGIs, UCs, consumos, valores e retenções de IR em PDFs complexos.
+* **Segmentação inteligente**: Separação automática de faturas individuais a partir de arquivos PDF consolidados (múltiplas páginas).
+* **Inteligência orçamentária**: Classificação automática baseada na **Ficha (Ação)**, correlacionando o identificador da fatura com a dotação correta.
+* **Exportação multiformato**: Geração de planilhas CSV para auditoria, arquivos ZIP organizados e relatórios finais em Excel (.XLSX) formatados para uso administrativo.
 
-O sistema utiliza uma arquitetura em camadas e padrões de projeto para garantir escalabilidade e baixa manutenção:
+## Arquitetura e engenharia de software
 
-* **Camada de Modelos (`models/`)**: Define entidades de dados abstratas e concretas através de `dataclasses`, garantindo que todas as faturas sigam um contrato rigoroso.
-* **Camada de Serviços (`services/`)**:
-    * **Orquestrador**: Centraliza o fluxo de trabalho, desacoplando a lógica de processamento da interface do usuário.
-    * **Factory Pattern**: A `ServiceFactory` gerencia a criação dinâmica de leitores e separadores específicos para cada concessionária.
-    * **Processamento de Dados**: Camada dedicada à manipulação de DataFrames e lógica financeira.
-* **Camada de Interface (`pages/` & `components/`)**: Interface modular construída em Streamlit, focada na experiência do usuário e reutilização de componentes.
-* **Camada de Utilitários (`utils/`)**: Centraliza constantes, cabeçalhos de exportação e padrões RegEx, permitindo ajustes técnicos sem alteração no núcleo do sistema.
+O sistema adota uma arquitetura em camadas e segue rigorosamente os princípios de **Clean Code** e **Injeção de Dependências**:
 
-## 3. Tecnologias Utilizadas
+| Camada | Responsabilidade |
+| :--- | :--- |
+| **`models/`** | Define as entidades de dados (`FaturaSabesp`, `FaturaEDP`) via `dataclasses` e contratos abstratos. |
+| **`services/`** | O núcleo lógico. Contém o **Orquestrador** (fluxo), a **Factory** (instanciação dinâmica), o **Processador** (cálculos) e o **Exportador** (geração de arquivos). |
+| **`components/`** | Widgets modulares de interface que garantem consistência visual e reusabilidade. |
+| **`utils/`** | Gestão de metadados. Isola as regras de negócio (mapeamentos) das configurações de interface e padrões RegEx. |
 
-* **Linguagem**: Python 3.x
-* **Framework de UI**: Streamlit
-* **Processamento de Dados**: Pandas
-* **Manipulação de PDF**: PDFPlumber e PyPDF
-* **Distribuição**: Suporte para empacotamento via PyInstaller.
+---
 
-## 4. Estrutura do Projeto
+## Configuração e execução
 
-```text
-leitor-sedis/
-├── components/          # Componentes de interface reutilizáveis
-├── models/              # Definições de classes e entidades (Fatura)
-├── pages/               # Telas da aplicação Streamlit
-├── services/            # Lógica de negócio (Leitura, Separação, Orquestração)
-├── utils/               # Constantes, RegEx e configurações globais
-├── tests/               # Amostras e scripts de teste de extração
-├── streamlit_app.py     # Ponto de entrada da aplicação
-└── requirements.txt     # Dependências do projeto
-```
+### Pré-requisitos
+* Python 3.10+
+* Dependências listadas em `requirements.txt`
 
-## 5. Como Executar
-
-1.  **Instalação de Dependências**:
+### Ambiente de desenvolvimento
+1.  Instale as dependências:
     ```bash
     pip install -r requirements.txt
     ```
-
-2.  **Execução em Modo Desenvolvimento**:
+2.  Inicie a aplicação:
     ```bash
     streamlit run streamlit_app.py
     ```
 
-3.  **Build do Sistema:**:
+### Distribuição (build)
+Para gerar um executável independente (.EXE) com todas as dependências incluídas:
+```bash
+pyinstaller --onefile --noconsole --name "Leitor de Faturas - Taubate" --add-data "streamlit_app.py;." --add-data "pages;pages" --add-data "components;components" --add-data "models;models" --add-data "services;services" --add-data "utils;utils" --add-data "assets;assets" --collect-all streamlit .\run_app.py
+```
 
-    Para fazer a build do sistema em um executável, rode o comando:
-    ```bash
-    pyinstaller --onefile --noconsole  --name "Leitor de Faturas - Taubate"  --collect-all streamlit  --collect-all pdfplumber  --collect-all pypdf --collect-all openpyxl  --add-data "streamlit_app.py;."  --add-data "pages;pages"  --add-data "components;components"  --add-data "models;models"  --add-data "services;services"  --add-data "utils;utils" --add-data "assets;assets"  .\run_app.py
-    ```
+## Manutenção e evolução
 
-    Após o sistema fazer a geração do executável, é possível rodá-lo acessando a basta `./dist`.
+O sistema foi projetado para ser sustentável a longo prazo sem necessidade de alteração no código-fonte principal:
 
-## 6. Configurações e Manutenção
+1.  **Atualização Orçamentária**: Para novos anos ou mudanças de fichas, altere apenas `utils/mapeamentos.py`.
+2.  **Ajustes de Layout**: Se as concessionárias alterarem o design das faturas, atualize os padrões em `utils/regex_patterns.py`.
+3.  **Configurações de Interface**: Opções de menus e listas suspensas são geridas em `utils/config_ui.py`.
 
-* **Atualização de Mapeamentos**: Novos RGIs ou UCs devem ser adicionados em `utils/constants.py` para garantir a correta classificação nas fichas orçamentárias.
-* **Ajustes de Extração**: Caso o layout das faturas mude, os padrões de captura devem ser atualizados em `utils/regex_patterns.py`.
+## Stack tecnológica
 
-*Este projeto é de uso exclusivo para fins administrativos da Prefeitura Municipal de Taubaté.*
+* **Core**: Python 3
+* **Interface**: Streamlit
+* **Dados**: Pandas
+* **PDF Engine**: PDFPlumber & PyPDF
+* **Exportação**: OpenPyXL
+
+> *Este software é um ativo de uso exclusivo administrativo da Secretaria de Desenvolvimento e Inclusão Social (SEDIS) da Prefeitura Municipal de Taubaté.*
