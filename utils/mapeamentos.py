@@ -1,14 +1,24 @@
 DOTACAO_FIXA = '06.01.00'
 
-RELACAO_FICHAS_ORCAMENTO = {
-    '2230': {'secretaria': 'SEC. CULTURA E ECONOMIA CRIATIVA', 'empenho': '851/2026', 'af': '331/2026'},
-    '2108': {'secretaria': 'SEC. ESPORTE, LAZER, QUALIDADE VIDA', 'empenho': '788/2026', 'af': '401/2026'},
+RELACAO_FICHAS_ORCAMENTO_SABESP = {
+    '2108': {'secretaria': 'SEC. ESPORTE, LAZER, QUALIDADE VIDA', 'empenho': '802/2026', 'af': '304/2026'},
     '2121': {'secretaria': 'SEC. DESENVOLVIMENTO E INCLUSÃO SOCIAL', 'empenho': '1074/2026', 'af': '198/2026'},
     '2122': {'secretaria': 'SEC. DESENVOLVIMENTO E INCLUSÃO SOCIAL', 'empenho': '819/2026', 'af': '315/2026'},
     '2123': {'secretaria': 'SEC. DESENVOLVIMENTO E INCLUSÃO SOCIAL', 'empenho': '816/2026', 'af': '313/2026'},
     '2124': {'secretaria': 'SEC. DESENVOLVIMENTO E INCLUSÃO SOCIAL', 'empenho': '821/2026', 'af': '316/2026'},
-    '2152': {'secretaria': 'SEC. DESENVOLVIMENTO E INCLUSÃO SOCIAL', 'empenho': '817/2026', 'af': '314/2026'}
+    '2152': {'secretaria': 'SEC. DESENVOLVIMENTO E INCLUSÃO SOCIAL', 'empenho': '817/2026', 'af': '314/2026'},
+    '2230': {'secretaria': 'SEC. CULTURA E ECONOMIA CRIATIVA', 'empenho': '851/2026', 'af': '331/2026'},
 }
+
+RELACAO_FICHAS_ORCAMENTO_EDP = {
+    '2108': {'secretaria': 'SEC. ESPORTE, LAZER, QUALIDADE VIDA', 'empenho': '788/2026', 'af': '401/2026'},
+    '2121': {'secretaria': 'SEC. DESENVOLVIMENTO E INCLUSÃO SOCIAL', 'empenho': '820/2026', 'af': '416/2026'},
+    '2122': {'secretaria': 'SEC. DESENVOLVIMENTO E INCLUSÃO SOCIAL', 'empenho': '807/2026', 'af': '413/2026'},
+    '2123': {'secretaria': 'SEC. DESENVOLVIMENTO E INCLUSÃO SOCIAL', 'empenho': '809/2026', 'af': '414/2026'},
+    '2124': {'secretaria': 'SEC. DESENVOLVIMENTO E INCLUSÃO SOCIAL', 'empenho': '818/2026', 'af': '415/2026'},
+    '2152': {'secretaria': 'SEC. DESENVOLVIMENTO E INCLUSÃO SOCIAL', 'empenho': '805/2026', 'af': '411/2026'},
+}
+
 
 RGI_FICHA_SABESP = {
     '570290406': '165(2152)',

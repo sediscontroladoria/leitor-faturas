@@ -4,7 +4,7 @@ from services.factory import ServiceFactory
 from services.processador_dados import ProcessadorDados
 from services.organizador_faturas import OrganizadorFaturas
 from services.exportador_relatorios import ExportadorRelatorios
-from utils.mapeamentos import DOTACAO_FIXA, RELACAO_FICHAS_ORCAMENTO
+from utils.mapeamentos import DOTACAO_FIXA, RELACAO_FICHAS_ORCAMENTO_SABESP, RELACAO_FICHAS_ORCAMENTO_EDP
 
 class OrquestradorFaturas:
     @staticmethod
@@ -77,8 +77,10 @@ class OrquestradorFaturas:
                 resultados['csv'] = ExportadorRelatorios.gerar_csv(df_final)
 
             if 'Gerar Relatório Final' in opcoes_saida:
+                relacao_fichas_orcamento = RELACAO_FICHAS_ORCAMENTO_SABESP if tipo_fatura == 'Sabesp' else RELACAO_FICHAS_ORCAMENTO_EDP
+
                 df_relatorio = ProcessadorDados.gerar_relatorio_final(
-                    faturas_lidas, mapa_fichas, coluna_id, DOTACAO_FIXA, RELACAO_FICHAS_ORCAMENTO
+                    faturas_lidas, mapa_fichas, coluna_id, DOTACAO_FIXA, relacao_fichas_orcamento
                 )
                 
                 resultados['relatorio'] = ExportadorRelatorios.gerar_excel_relatorio(
