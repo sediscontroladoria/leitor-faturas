@@ -48,6 +48,22 @@ with col_comp:
     complemento = input_complemento('complemento')
 
 arquivos_pdf = upload_faturas_pdf()
+
+nomes_arquivos = tuple([f.name for f in arquivos_pdf]) if arquivos_pdf else ()
+
+estado_atual = (
+    tipo_fatura, centro_comunitario, mes_comp, ano_comp, 
+    tipo_debito, tuple(opcoes_saida), conta_fatura, complemento,
+    nomes_arquivos
+)
+
+if estado_atual != st.session_state.estado_anterior:
+    st.session_state.processado = False
+    st.session_state.dados_csv = None
+    st.session_state.dados_zip = None
+    st.session_state.dados_relatorio = None
+    st.session_state.estado_anterior = estado_atual
+    
 if arquivos_pdf and st.button('Processar Faturas'):
     if not opcoes_saida:
         st.error('Selecione ao menos um item para gerar.')
