@@ -17,6 +17,8 @@ if 'dados_relatorio' not in st.session_state:
     st.session_state.dados_relatorio = None
 if 'processado' not in st.session_state:
     st.session_state.processado = False
+if 'estado_anterior' not in st.session_state:
+    st.session_state.estado_anterior = None
 
 render_page_header('Processador de Faturas', '📄')
 
@@ -57,13 +59,14 @@ estado_atual = (
     nomes_arquivos
 )
 
-if estado_atual != st.session_state.estado_anterior:
+if st.session_state.estado_anterior is not None and st.session_state.estado_anterior != estado_atual:
     st.session_state.processado = False
     st.session_state.dados_csv = None
     st.session_state.dados_zip = None
     st.session_state.dados_relatorio = None
-    st.session_state.estado_anterior = estado_atual
-    
+
+st.session_state.estado_anterior = estado_atual
+
 if arquivos_pdf and st.button('Processar Faturas'):
     if not opcoes_saida:
         st.error('Selecione ao menos um item para gerar.')
