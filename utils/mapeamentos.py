@@ -2,7 +2,7 @@ DOTACAO_FIXA = '06.01.00'
 
 RELACAO_FICHAS_ORCAMENTO_SABESP = {
     '2108': {'secretaria': 'SEC. ESPORTE, LAZER, QUALIDADE VIDA', 'empenho': '802/2026', 'af': '304/2026'},
-    '2121': {'secretaria': 'SEC. DESENVOLVIMENTO E INCLUSÃO SOCIAL', 'empenho': '1074/2026', 'af': '198/2026'},
+    '2121': {'secretaria': 'SEC. DESENVOLVIMENTO E INCLUSÃO SOCIAL', 'empenho': '1074/2026', 'af': '298/2026'},
     '2122': {'secretaria': 'SEC. DESENVOLVIMENTO E INCLUSÃO SOCIAL', 'empenho': '819/2026', 'af': '315/2026'},
     '2123': {'secretaria': 'SEC. DESENVOLVIMENTO E INCLUSÃO SOCIAL', 'empenho': '816/2026', 'af': '313/2026'},
     '2124': {'secretaria': 'SEC. DESENVOLVIMENTO E INCLUSÃO SOCIAL', 'empenho': '821/2026', 'af': '316/2026'},
@@ -133,6 +133,7 @@ UC_FICHA_EDP_CENTRO = {
     '1298400470': '165(2152)',
     '139895700491': '165(2152)',
     '167450900442': '815(2108)',
+    '118542900427': '815(2108)'
 }
 
 UC_EDP = list(UC_FICHA_EDP.keys())
